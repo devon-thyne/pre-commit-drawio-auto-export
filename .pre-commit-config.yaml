@@ -1,0 +1,21 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: no-commit-to-branch
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: trailing-whitespace
+      - id: check-symlinks
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+
+  - repo: local
+    hooks:
+      - id: drawio-auto-export
+        name: Draw.io Auto Export
+        description: >-
+          Automatically exports .drawio files in repository into .png whenever you commit changes
+        entry: hooks/drawio-auto-export.sh
+        language: script
+        files: \.drawio$

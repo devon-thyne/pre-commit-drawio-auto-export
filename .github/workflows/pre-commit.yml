@@ -1,0 +1,43 @@
+name: pre-commit
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+
+    container:
+      image: python:3.11-bullseye
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Mark workspace as safe for git
+        run: |
+          export HOME=/github/home
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            libasound2 \
+            libatk-bridge2.0-0 \
+            libatk1.0-dev \
+            libcups2 \
+            libdbus-1-dev \
+            libgbm1 \
+            libgtk-3-0 \
+            libimage-exiftool-perl \
+            libnss3 \
+            xvfb
+
+      - name: Install pre-commit
+        run: pip3 install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files

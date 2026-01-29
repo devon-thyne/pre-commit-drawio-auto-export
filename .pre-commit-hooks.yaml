@@ -1,0 +1,7 @@
+- id: drawio-auto-export
+  name: Draw.io Auto Export
+  description: >-
+    Automatically exports .drawio files in repository into .png whenever you commit changes
+  entry: hooks/drawio-auto-export.sh
+  language: script
+  files: \.drawio$
